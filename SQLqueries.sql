@@ -23,10 +23,10 @@ INSERT INTO Items (addedByUid, item, dateAdded)
 	VALUES ('ADDEDBYUID', 'ITEM', 'DATEADDED');
 
 --RemoveItem
---Delete
+-- 1)Delete
 --Python Inputs: 'IID'
 DELETE FROM Items WHERE iid = 'IID';
---Insert into removed table
+-- 2)Insert into removed table
 --Python Inputs: 'REMOVEDBYUID', 'ADDEDBYUID', 'ITEM', 'DATEADDED', 'DATEREMOVED'
 INSERT INTO RemoveItems (removedByUid, addedByUid, item, dateAdded, dateRemoved)
 	VALUES ('REMOVEDBYUID', 'ADDEDBYUID', 'ITEM', 'DATEADDED', 'DATEREMOVED');
