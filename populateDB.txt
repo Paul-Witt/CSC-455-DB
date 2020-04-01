@@ -1,0 +1,26 @@
+
+#Populating Users Information into User tables:
+
+INSERT into User (username,pass,dateAdded,isAdmin) VALUES ("treyhamilton", "hamilton1", "03-31-20", "True");
+INSERT into User (username,pass,dateAdded,isAdmin) VALUES ("paulwitt", "somepassword", "03-31-20", "True");
+INSERT into User (username,pass,dateAdded,isAdmin) VALUES ("mickeymouse", "mousetr@p", "03-31-20", "False");
+INSERT into User (username,pass,dateAdded,isAdmin) VALUES ("papasmurf", "blu3m00n", "03-31-20", "False");
+INSERT into User (username,pass,dateAdded,isAdmin) VALUES ("scoobydoo", "sc00bysn@ck", "03-31-20", "False");
+INSERT into User (username,pass,dateAdded,isAdmin) VALUES ("stuartlittle", "n0taboy", "03-31-20", "False");
+INSERT into User (username,pass,dateAdded,isAdmin) VALUES ("shrek", "tru3lov3", "03-31-20", "False");
+INSERT into User (username,pass,dateAdded,isAdmin) VALUES ("narayan", "teachpassword", "03-31-20", "True");
+INSERT into User (username,pass,dateAdded,isAdmin) VALUES ("ariel", "und3rthese@", "03-31-20", "False");
+INSERT into User (username,pass,dateAdded,isAdmin) VALUES ("chickenlittle", "eatmorec0w5", "03-31-20", "False");
+
+#Populating Items into Items table:
+
+INSERT into Items (addedByUid,item,dateAdded) VALUES (1, "Popcorn", "03-31-20");
+INSERT into Items (addedByUid,item,dateAdded) VALUES (7, "Apples", "03-31-20");
+INSERT into Items (addedByUid,item,dateAdded) VALUES (2, "Soda", "03-31-20");
+INSERT into Items (addedByUid,item,dateAdded) VALUES (2, "Potatoes", "03-31-20");
+INSERT into Items (addedByUid,item,dateAdded) VALUES (1, "Chocolate", "03-31-20");
+INSERT into Items (addedByUid,item,dateAdded) VALUES (3, "Muffins", "03-31-20");
+INSERT into Items (addedByUid,item,dateAdded) VALUES (5, "Bread", "03-31-20");
+INSERT into Items (addedByUid,item,dateAdded) VALUES (4, "Crackers", "03-31-20");
+INSERT into Items (addedByUid,item,dateAdded) VALUES (2, "Chicken", "03-31-20");
+INSERT into Items (addedByUid,item,dateAdded) VALUES (1, "Steak", "03-31-20");
