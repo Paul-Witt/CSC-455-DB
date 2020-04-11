@@ -15,7 +15,7 @@ SELECT isAdmin FROM User WHERE uid in (
 
 --CheckSession
 --INPUTSESSION is session cookie
-SELECT uid FROM Sessions WHERE "INPUTSESSION" =session;
+SELECT uid FROM Sessions WHERE "INPUTSESSION" = session;
 
 --AddItem
 --Python Inputs: 'ADDEDBYUID', 'ITEM', 'DATEADDED'
@@ -30,7 +30,6 @@ DELETE FROM Items WHERE iid = 'IID';
 --Python Inputs: 'REMOVEDBYUID', 'ADDEDBYUID', 'ITEM', 'DATEADDED', 'DATEREMOVED'
 INSERT INTO RemoveItems (removedByUid, addedByUid, item, dateAdded, dateRemoved)
 	VALUES ('REMOVEDBYUID', 'ADDEDBYUID', 'ITEM', 'DATEADDED', 'DATEREMOVED');
-
 
 --LogOut
 --Python Inputs: INPUTSESSION
