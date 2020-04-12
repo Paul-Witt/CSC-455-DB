@@ -31,7 +31,6 @@ def addItems(text='Nothing'):
     db.session.add(anItem)
     db.session.commit()
 
-
 # Make the DB and add the admin
 def makeDB():
     # make 
