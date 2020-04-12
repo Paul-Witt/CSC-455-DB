@@ -3,7 +3,7 @@ from flask import render_template, url_for, flash, redirect, request, abort
 from flask_login import login_user, current_user, logout_user, login_required
 from oneList import app, db, bcrypt, tools
 from oneList.forms import RegistrationForm, LogInForm, PostItem
-from oneList.models import User
+from oneList.models import User, Items
 
 
 '''
@@ -89,8 +89,19 @@ def index():
 @app.route("/app", methods=['GET','POST'])
 @login_required
 def listApp():
+    #q = db.session.query(User)
     textform = PostItem()
-    return render_template('app.html', title='List', form=textform)
+    return render_template('app.html', title='List', form=textform, posts=Items.query.all())
 
+# Used for added an Item
+@app.route("/add", methods=['POST'])
+@login_required
+def addItem():
+    addItemForm = PostItem()
 
+    if addItemForm.validate_on_submit():
+        anItem = Items(addedByUid=current_user.uid, item=addItemForm.text.data,dateAdded=tools.getEpoch())
+        db.session.add(anItem)
+        db.session.commit()
 
+    return redirect(url_for('listApp'))

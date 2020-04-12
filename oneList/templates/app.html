@@ -1,12 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="content-section">
-        We can add stuff here once I figure that out...
+
         <form method="POST" action="">
+            <legend class="border-bottom mb-4">Items</legend>
+            <div class="form-group">
+
+                {% for post in posts %}
+                <h4>{{ post.item }} </h4>
+                {% endfor %}
+
+            </div>
+        </form>
+
+        <form method="POST" action="add">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Add an Item</legend>
                 <div class="form-group">
+
                     {% if form.text.errors %}
                         {{ form.text(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -16,11 +28,13 @@
                         </div>
                     {% else %}
                         {{ form.text(class="form-control form-control-lg") }}
-                    {% endif %}  
+                    {% endif %} 
+
                 </div>
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
         </form>
+
 {% endblock content %}
