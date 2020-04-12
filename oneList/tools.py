@@ -26,7 +26,7 @@ def makeAdmin():
     db.session.add(admin)
     db.session.commit()
 
-def addItems(text='Nothing'):
+def addItem(text='Nothing'):
     anItem = Items(addedByUid=1, item=text,dateAdded=getEpoch())
     db.session.add(anItem)
     db.session.commit()
@@ -37,7 +37,7 @@ def makeDB():
     db.create_all()
     # add admin
     makeAdmin()
-    #addItems("This a test!!")
+    #addItem("This a test!!")
 
 
 
