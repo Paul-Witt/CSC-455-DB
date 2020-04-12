@@ -2,7 +2,7 @@ from random import randint
 from flask import render_template, url_for, flash, redirect, request, abort
 from flask_login import login_user, current_user, logout_user, login_required
 from oneList import app, db, bcrypt, tools
-from oneList.forms import RegistrationForm, LogInForm
+from oneList.forms import RegistrationForm, LogInForm, PostItem
 from oneList.models import User
 
 
@@ -89,7 +89,8 @@ def index():
 @app.route("/app", methods=['GET','POST'])
 @login_required
 def listApp():
-    return "Nothing yet"
+    textform = PostItem()
+    return render_template('app.html', title='List', form=textform)
 
 
 

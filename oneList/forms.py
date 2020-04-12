@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from oneList.models import User
 
 class RegistrationForm(FlaskForm):
-    username = StringField("Username", validators=[DataRequired(), Length(min=5, max=30)])
+    username = StringField("Username", validators=[DataRequired(), Length(min=3, max=30)])
     password = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
     submit = SubmitField("Sign Up")
@@ -20,3 +20,6 @@ class LogInForm(FlaskForm):
     remember = BooleanField("Remember My Login")
     submit = SubmitField("Login")
 
+class PostItem(FlaskForm):
+    text = StringField("Text", validators=[DataRequired()])
+    submit = SubmitField("Add item")

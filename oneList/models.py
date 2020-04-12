@@ -24,7 +24,6 @@ Gets loads the User's info from the user table
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
 '''
 CREATE TABLE "User" (
     "uid"   INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
@@ -43,9 +42,6 @@ class User(db.Model, UserMixin):
     # Override get_id method inhearted from UserMixin 
     def get_id(self):
         return self.uid
-
-
-
 
 '''
 CREATE TABLE "RemovedItems" (

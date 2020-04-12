@@ -31,16 +31,15 @@
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
+              {% block nav %}{% endblock %}
 
               {% if current_user.is_authenticated %}
-                    <a class="nav-item nav-link" href="\">can be added Test</a>
-
+                <a class="nav-item nav-link" href="\">Test if I can add stuff here</a>
                 <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
               {% else %}
                 <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
                 <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
-              {% endif %}
-              
+              {% endif %} 
             </div>
           </div>
         </div>
@@ -56,16 +55,12 @@
                   {{ message }}
                 </div>
               {% endfor %}
-          {% endif %}
+            {% endif %}
           {% endwith %}
           {% block content %}{% endblock %}
         </div>
-
-
       </div>
     </main>
-
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
