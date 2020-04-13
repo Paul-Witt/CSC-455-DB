@@ -2,8 +2,10 @@ from random import randint
 from flask import render_template, url_for, flash, redirect, request, abort
 from flask_login import login_user, current_user, logout_user, login_required
 from oneList import app, db, bcrypt, tools
+from oneList.tools import getEpoch, epochToDate
 from oneList.forms import RegistrationForm, LogInForm, PostItem
 from oneList.models import User, Items
+from oneList.storedProcedures import pairItemAndUser
 
 
 '''
@@ -26,7 +28,7 @@ def register():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
 
         # Get user info from form
-        user = User(username=form.username.data, password=hashed_password, dateAdded=tools.getEpoch(), isAdmin='false')
+        user = User(username=form.username.data, password=hashed_password, dateAdded=getEpoch(), isAdmin='false')
 
         try:
             # Add user
@@ -89,9 +91,9 @@ def index():
 @app.route("/app", methods=['GET','POST'])
 @login_required
 def listApp():
-    #q = db.session.query(User)
     textform = PostItem()
-    return render_template('app.html', title='List', form=textform, posts=Items.query.all())
+    return render_template('app.html', title='List', textform=textform,dateConversion=epochToDate, posts=pairItemAndUser())
+
 
 # Used for added an Item
 @app.route("/add", methods=['POST'])
@@ -100,8 +102,15 @@ def addItem():
     addItemForm = PostItem()
 
     if addItemForm.validate_on_submit():
-        anItem = Items(addedByUid=current_user.uid, item=addItemForm.text.data,dateAdded=tools.getEpoch())
+        anItem = Items(addedByUid=current_user.uid, item=addItemForm.text.data,dateAdded=getEpoch())
         db.session.add(anItem)
         db.session.commit()
 
     return redirect(url_for('listApp'))
+
+#@app.route("/test", methods=['GET','POST'])
+#def testSQL():
+#    out = ''
+#    for i in test():
+#        print(i[0].username)
+#    return ""
