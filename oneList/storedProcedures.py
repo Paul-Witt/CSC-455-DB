@@ -10,3 +10,9 @@ def selectAllUsers():
 def pairItemAndUser():
     return db.session.query(User, Items).filter(User.uid == Items.addedByUid)
 
+# TODO ADD removed Items to the Removed table
+def removeItem(iid):
+    myitem = db.session.query(Items).filter(Items.iid == iid).first()
+    db.session.delete(myitem)
+    db.session.commit()
+

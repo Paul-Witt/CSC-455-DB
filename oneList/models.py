@@ -34,7 +34,7 @@ CREATE TABLE "User" (
 )'''
 class User(db.Model, UserMixin):
     uid = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True, unique=True)
-    username = db.Column(db.String(25), nullable=False, unique=True) # WHY NO LIKE??
+    username = db.Column(db.String(10), nullable=False, unique=True) # WHY NO LIKE??
     password = db.Column(db.String(100), nullable=False)
     dateAdded = db.Column(db.Integer, nullable=False)
     isAdmin = db.Column(db.String(5), nullable=False, default='false')

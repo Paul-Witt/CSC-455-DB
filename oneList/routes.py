@@ -3,9 +3,9 @@ from flask import render_template, url_for, flash, redirect, request, abort
 from flask_login import login_user, current_user, logout_user, login_required
 from oneList import app, db, bcrypt, tools
 from oneList.tools import getEpoch, epochToDate
-from oneList.forms import RegistrationForm, LogInForm, PostItem
+from oneList.forms import RegistrationForm, LogInForm, ItemForm
 from oneList.models import User, Items
-from oneList.storedProcedures import pairItemAndUser
+from oneList.storedProcedures import pairItemAndUser, removeItem
 
 
 '''
@@ -91,26 +91,37 @@ def index():
 @app.route("/app", methods=['GET','POST'])
 @login_required
 def listApp():
-    textform = PostItem()
-    return render_template('app.html', title='List', textform=textform,dateConversion=epochToDate, posts=pairItemAndUser())
+    return render_template('app.html', title='List', form=ItemForm(),dateConversion=epochToDate, posts=pairItemAndUser())
 
 
 # Used for added an Item
-@app.route("/add", methods=['POST'])
+@app.route("/itemAction", methods=['POST'])
 @login_required
-def addItem():
-    addItemForm = PostItem()
+def itemAction():
+    # Get form
+    addItemForm = ItemForm()
+    # Check which button is pressed
+    # Add an item
+    if 'submitAdd' in request.form:
+        print("Add pressed")
+        if addItemForm.validate_on_submit():
+            anItem = Items(addedByUid=current_user.uid, item=addItemForm.text.data, dateAdded=getEpoch())
+            db.session.add(anItem)
+            db.session.commit()
+        else:
+            flash('Posted item needs to be 3-200 characters', 'warning')
 
-    if addItemForm.validate_on_submit():
-        anItem = Items(addedByUid=current_user.uid, item=addItemForm.text.data,dateAdded=getEpoch())
-        db.session.add(anItem)
-        db.session.commit()
-
+    # Remove an item
+    elif 'submitDel' in request.form: 
+        # remove all items checked
+        for i in request.form.getlist('box'):
+            try:
+                i = int(i)
+                removeItem(i)
+            except ValueError as err:
+                print("[!!] Tryed to remove",i)
+                print(err)
+            
     return redirect(url_for('listApp'))
 
-#@app.route("/test", methods=['GET','POST'])
-#def testSQL():
-#    out = ''
-#    for i in test():
-#        print(i[0].username)
-#    return ""
+

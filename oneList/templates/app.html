@@ -2,42 +2,40 @@
 {% block content %}
     <div class="content-section">
 
-        <form method="POST" action="">
+        <form method="POST" action="itemAction">
             <legend class="border-bottom mb-4">Items</legend>
+            {{ form.hidden_tag() }}
             <div class="form-group">
-
                 {% for post in posts %}
-                    <h4>
-                        [{{dateConversion(post.User.dateAdded)}}] 
-                        <b>{{post.User.username}}:</b> 
-                        <u>{{ post.Items.item }}</u>
-                     </h4>
+                    <h5>
+                        <u>
+                            <strong>{{post.User.username}}</strong><small> [{{dateConversion(post.User.dateAdded)}}]</small>
+                        </u>
+                        <br>
+                        {{ form.box(value=post.Items.iid)}} {{ post.Items.item }}
+                    </h5>
+                    <br>
                 {% endfor %}
-
             </div>
-        </form>
-
-        <form method="POST" action="add">
-            {{ textform.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Add an Item</legend>
                 <div class="form-group">
 
-                    {% if textform.text.errors %}
-                        {{ textform.text(class="form-control form-control-lg is-invalid") }}
+                    {% if form.text.errors %}
+                        {{ form.text(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
                             {% for error in form.text.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ textform.text(class="form-control form-control-lg") }}
+                        {{ form.text(class="form-control form-control-lg") }}
                     {% endif %} 
-
                 </div>
             </fieldset>
             <div class="form-group">
-                {{ textform.submit(class="btn btn-outline-info") }}
+                {{ form.submitAdd(class="btn btn-outline-info") }} 
+                {{ form.submitDel(class="btn btn-outline-info") }} 
             </div>
         </form>
 

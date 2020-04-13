@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from oneList.models import User
 
 class RegistrationForm(FlaskForm):
-    username = StringField("Username", validators=[DataRequired(), Length(min=3, max=30)])
+    username = StringField("Username", validators=[DataRequired(), Length(min=3, max=10)])
     password = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
     submit = SubmitField("Sign Up")
@@ -20,6 +20,14 @@ class LogInForm(FlaskForm):
     remember = BooleanField("Remember My Login")
     submit = SubmitField("Login")
 
-class PostItem(FlaskForm):
-    text = StringField("Text", validators=[DataRequired()])
-    submit = SubmitField("Add item")
+class ItemForm(FlaskForm):
+    #text = StringField("Text", validators=[DataRequired(), Length(min=2, max=200)])
+    text = StringField("Text", validators=[Length(min=3, max=200)])
+    submitAdd = SubmitField("Add item")
+    submitDel = SubmitField("Remove Checked Items")
+    box = BooleanField("Remove")
+
+
+# class RemoveItem(FlaskForm):
+#     box = BooleanField("Remove")
+#     submit = SubmitField("XXXXRemove Checked Items")

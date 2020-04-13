@@ -24,7 +24,6 @@ if not path.exists("oneList/"+databaseName):
 	from oneList import tools
 	tools.makeDB()
 
-
 from oneList import routes
 
 
