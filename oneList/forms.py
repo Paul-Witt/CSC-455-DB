@@ -21,13 +21,8 @@ class LogInForm(FlaskForm):
     submit = SubmitField("Login")
 
 class ItemForm(FlaskForm):
-    #text = StringField("Text", validators=[DataRequired(), Length(min=2, max=200)])
     text = StringField("Text", validators=[Length(min=3, max=200)])
     submitAdd = SubmitField("Add item")
     submitDel = SubmitField("Remove Checked Items")
     box = BooleanField("Remove")
 
-
-# class RemoveItem(FlaskForm):
-#     box = BooleanField("Remove")
-#     submit = SubmitField("XXXXRemove Checked Items")

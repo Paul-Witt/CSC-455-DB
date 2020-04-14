@@ -114,12 +114,12 @@ def itemAction():
     # Remove an item
     elif 'submitDel' in request.form: 
         # remove all items checked
-        for i in request.form.getlist('box'):
+        for formiid in request.form.getlist('box'):
             try:
-                i = int(i)
-                removeItem(i)
+                formiid = int(formiid)
+                removeItem(formiid, current_user.uid)
             except ValueError as err:
-                print("[!!] Tryed to remove",i)
+                print("[!!] Tryed to remove",formiid)
                 print(err)
             
     return redirect(url_for('listApp'))
