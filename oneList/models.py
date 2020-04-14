@@ -67,6 +67,8 @@ class RemovedItems(db.Model):
     dateAdded = db.Column(db.Integer, nullable=False)
     dateRemoved = db.Column(db.Integer, nullable=False)
 
+    def __repr__(self):
+        return(f"sample output: {self.item}")
 '''
 CREATE TABLE "Items" (
     "iid"   INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,

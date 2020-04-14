@@ -5,7 +5,7 @@ from oneList import app, db, bcrypt, tools
 from oneList.tools import getEpoch, epochToDate
 from oneList.forms import RegistrationForm, LogInForm, ItemForm
 from oneList.models import User, Items
-from oneList.storedProcedures import pairItemAndUser, removeItem
+from oneList.storedProcedures import pairItemAndUser, removeItem, selectRemovedItems
 
 
 '''
@@ -124,4 +124,12 @@ def itemAction():
             
     return redirect(url_for('listApp'))
 
+# Page that will show all the past items
+@app.route("/removedItems", methods=['POST','GET'])
+@login_required
+def removedItems():
+    out = 'Removed items test<br>'
+    for i in selectRemovedItems():
+        out += str(i)+"<br>"
+    return out
 
