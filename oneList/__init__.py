@@ -21,8 +21,8 @@ login_manager.login_message_category = 'info'
 
 # If there is no database we make one
 if not path.exists("oneList/"+databaseName):
-	from oneList import tools
-	tools.makeDB()
+    from oneList import tools
+    tools.makeDB()
 
 from oneList import routes
 
