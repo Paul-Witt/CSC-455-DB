@@ -11,7 +11,7 @@ def selectAllUsers():
 def pairItemAndUser():
     return db.session.query(User, Items).filter(User.uid == Items.addedByUid)
 
-# Moves items to removed items tabel 
+# Moves items to removedItems tabel 
 def removeItem(itemID,removedByUid):
     myitem = db.session.query(Items).filter(Items.iid == itemID).first()
     if myitem:
@@ -26,7 +26,12 @@ def removeItem(itemID,removedByUid):
         db.session.delete(myitem)
         db.session.commit()
 
-# 
+# Gets all of the l
 def selectRemovedItems():
     return db.session.query(RemovedItems).all()
+
+def getUsername(uid):
+    return db.session.query(User).filter(User.uid==uid).first().username
+
+
 

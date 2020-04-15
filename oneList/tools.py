@@ -37,7 +37,6 @@ def makeDB():
     db.create_all()
     # add admin
     makeAdmin()
-    #addItem("This a test!!")
 
 
 

@@ -11,9 +11,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
     {% if title %}
-        <title>An App - {{ title }}</title>
+        <title>One List - {{ title }}</title>
     {% else %}
-        <title>An App</title>
+        <title>One List</title>
     {% endif %}
 
 </head>
@@ -21,20 +21,19 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="/">A simple Webapp</a>
+          <a class="navbar-brand mr-4" href="/">One List</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
-            <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="https://Google.com">Google</a>
-            </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% block nav %}{% endblock %}
-
               {% if current_user.is_authenticated %}
-                <a class="nav-item nav-link" href="\">Test if I can add stuff here</a>
+                {% if current_user.isAdmin == 'true' %}
+                  <a class="nav-item nav-link" href="{{ url_for('listApp') }}">Current List</a>
+                  <a class="nav-item nav-link" href="{{ url_for('removedItems') }}">Removed Items</a>
+                {% endif %} 
                 <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
               {% else %}
                 <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>

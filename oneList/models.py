@@ -61,7 +61,6 @@ CREATE TABLE "RemovedItems" (
 class RemovedItems(db.Model):
     rid = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
     removedByUid = db.Column(db.Integer, db.ForeignKey(User.uid), nullable=False)
-    #removedByUid = db.relationship('User',cascade='all,delete')
     addedByUid = db.Column(db.Integer, db.ForeignKey(User.uid), nullable=False)
     item = db.Column(db.String(200), nullable=False)
     dateAdded = db.Column(db.Integer, nullable=False)
@@ -80,7 +79,6 @@ CREATE TABLE "Items" (
 class Items(db.Model):
     iid = db.Column(db.Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
     addedByUid = db.Column(db.Integer, db.ForeignKey(User.uid), nullable=False)
-    #uid = db.relationship('User', cascade="all,delete")
     item = db.Column(db.String(200), nullable=False)
     dateAdded = db.Column(db.Integer, nullable=False)
 

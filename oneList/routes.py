@@ -5,7 +5,7 @@ from oneList import app, db, bcrypt, tools
 from oneList.tools import getEpoch, epochToDate
 from oneList.forms import RegistrationForm, LogInForm, ItemForm
 from oneList.models import User, Items
-from oneList.storedProcedures import pairItemAndUser, removeItem, selectRemovedItems
+from oneList.storedProcedures import pairItemAndUser, removeItem, selectRemovedItems, getUsername
 
 
 '''
@@ -119,8 +119,7 @@ def itemAction():
                 formiid = int(formiid)
                 removeItem(formiid, current_user.uid)
             except ValueError as err:
-                print("[!!] Tryed to remove",formiid)
-                print(err)
+                print("[!!] Cause:", formiid, "Error:", err)
             
     return redirect(url_for('listApp'))
 
@@ -128,8 +127,8 @@ def itemAction():
 @app.route("/removedItems", methods=['POST','GET'])
 @login_required
 def removedItems():
-    out = 'Removed items test<br>'
-    for i in selectRemovedItems():
-        out += str(i)+"<br>"
-    return out
+    if current_user.isAdmin == 'true': 
+        return render_template('removed.html',removedItemsList=selectRemovedItems(),getUser=getUsername,dateConversion=epochToDate)
+    else:
+        return 'Admin only'
 
