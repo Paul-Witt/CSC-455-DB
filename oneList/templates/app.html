@@ -9,7 +9,7 @@
                 {% for post in posts %}
                     <h5>
                         <u>
-                            <strong>{{post.User.username}}</strong><small> [{{dateConversion(post.User.dateAdded)}}]</small>
+                            <strong>{{post.User.username}}</strong><small>[{{dateConversion(post.User.dateAdded)}}]</small>
                         </u>
                         <br>
                         {{ form.box(value=post.Items.iid)}} {{ post.Items.item }}
