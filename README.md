@@ -9,3 +9,4 @@
  * flask_login
  * flask_sqlalchemy
  * flask_bcrypt
+ * flask_wtf
