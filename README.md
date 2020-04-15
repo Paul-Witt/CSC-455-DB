@@ -6,4 +6,6 @@
  * Implement views
 
 ## Install
- * flask_from
+ * flask_login
+ * flask_sqlalchemy
+ * flask_bcrypt
