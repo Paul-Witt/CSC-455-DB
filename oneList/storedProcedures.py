@@ -12,6 +12,7 @@ def pairItemAndUser():
     return db.session.query(User, Items).filter(User.uid == Items.addedByUid)
 
 # Moves items to removedItems tabel 
+## This is our transaction 
 def removeItem(itemID,removedByUid):
     myitem = db.session.query(Items).filter(Items.iid == itemID).first()
     if myitem:
@@ -25,6 +26,7 @@ def removeItem(itemID,removedByUid):
         db.session.add(removedItem)
         db.session.delete(myitem)
         db.session.commit()
+
 
 # Gets all of the l
 def selectRemovedItems():
