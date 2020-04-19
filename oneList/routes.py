@@ -11,6 +11,9 @@ from oneList.storedProcedures import pairItemAndUser, removeItem, selectRemovedI
 '''
 Notes
 @login_required :: used to check if user is logged in
+
+db.session.rollback()
+
 '''
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -101,7 +104,7 @@ def itemAction():
     # Get form
     addItemForm = ItemForm()
     # Check which button is pressed
-    # Add an item
+    # Add an item button
     if 'submitAdd' in request.form:
         print("Add pressed")
         if addItemForm.validate_on_submit():
@@ -111,7 +114,7 @@ def itemAction():
         else:
             flash('Posted item needs to be 3-200 characters', 'warning')
 
-    # Remove an item
+    # Remove an item button
     elif 'submitDel' in request.form: 
         # remove all items checked
         for formiid in request.form.getlist('box'):
