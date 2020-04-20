@@ -131,7 +131,10 @@ def itemAction():
 @login_required
 def removedItems():
     if current_user.isAdmin == 'true': 
-        return render_template('removed.html',removedItemsList=selectRemovedItems(),getUser=getUsername,dateConversion=epochToDate)
+        return render_template('removed.html',
+            removedItemsList=selectRemovedItems(),
+            getUser=getUsername,
+            dateConversion=epochToDate)
     else:
-        return 'Admin only'
+        abort(403)
 

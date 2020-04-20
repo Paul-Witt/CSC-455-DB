@@ -23,11 +23,11 @@
  * [ ] Modification of the database like insert, update and delete
  
 ### 4 of the 6 items
- * [ ] Views
- * [ ] Triggers
- * [ ] Transaction processing
- * [ ] Prepared Statements
- * [ ] Stored Procedures
+ * [ ] Views (make it so admin can see items removed form everyone but non admins can only see their stuff)
+ * [ ] Triggers (if no user agent  is given we can replace it with "[NONE GIVEN]")
+ * [ ] Transaction processing (I think when we move items from one table to another counts)
+ * [ ] Prepared Statements ()
+ * [ ] Stored Procedures (maybe use functions that return some sql text)
  * [ ] Stored Functions
 
 

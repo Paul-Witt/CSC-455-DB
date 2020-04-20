@@ -3,20 +3,6 @@ from oneList import db, login_manager
 from flask_login import UserMixin
 
 '''
-TODO
-
-Will need to add views (:
-They did it like this
-
-def agentView(self):
-    agentView = User.query.filter(username = User.username, email = User.email)
-    return agentView
-def managerView(self):
-    managerView = User.query.all()
-    return managerView
-'''
-
-'''
 Gets loads the User's info from the user table
 @Pram user_id :: int, User's uid
 '''
@@ -39,13 +25,15 @@ class User(db.Model, UserMixin):
     dateAdded = db.Column(db.Integer, nullable=False)
     isAdmin = db.Column(db.String(5), nullable=False, default='false')
 
+    def userView(self):
+        return  User.query.filter(username = User.uid)
+
+    def adminView(self):
+        return User.query.all()
+
     # Override get_id method inhearted from UserMixin 
     def get_id(self):
         return self.uid
-
-    # def userView(self):
-    #     userView = User.query.filter(username = User.username, email = User.email)
-    #         return userView
 
 '''
 CREATE TABLE "RemovedItems" (
