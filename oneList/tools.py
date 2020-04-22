@@ -40,9 +40,27 @@ AS
 SELECT Items.iid, User.username, Items.item, Items.dateAdded
 from Items
 inner join User on Items.addedByUid = User.uid;'''
-
+    
+    # View for removed items page
+    # outputs a table with rid, addedBy, item, dateAdded, dateRemoved, removedBy
+    removedItemsPageViewSql = '''
+CREATE VIEW removedItemsPage
+AS
+select * from 
+(
+    SELECT removed_items.rid, user.username as addedBy ,removed_items.item, removed_items.dateAdded, removed_items.dateRemoved
+    from removed_items
+    inner join User on removed_items.addedByUid = user.uid
+)
+NATURAL join
+(   
+    SELECT removed_items.rid, user.username as removedBy,removed_items.item, removed_items.dateAdded, removed_items.dateRemoved
+    from removed_items
+    inner join User on removed_items.removedByUid = user.uid
+);'''
     # Add view by running SQL
     db.session.execute(addItemsPageViewSql)
+    db.session.execute(removedItemsPageViewSql)
     db.session.commit()
 
 
