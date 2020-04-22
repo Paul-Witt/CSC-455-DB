@@ -150,9 +150,9 @@ def itemAction():
 @login_required
 def removedItems():
     if current_user.isAdmin == 'true': 
+        removedItemsWithUsernames = db.session.execute('select * from removedItemsPage')
         return render_template('removed.html',
-            removedItemsList=selectRemovedItems(),
-            getUser=getUsername,
+            removedItemsList=removedItemsWithUsernames,
             dateConversion=epochToDate)
     else:
         abort(403)

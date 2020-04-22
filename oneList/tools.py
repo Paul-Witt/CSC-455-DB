@@ -73,6 +73,7 @@ def makeDB():
     # add admin
     makeAdmin()
 
+# TODO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 def logUser(request, current_user):
     thisSession = request.cookies['session']
     # log new session

@@ -18,7 +18,7 @@
  * [X] Basic constructs like select, project, cartesian product, natural join
       * easy one since we cant do anything with out these
  * [ ] Aggregate functions like group by, sum, average, max etc 
- * [ ] Nested subqueries
+ * [X] Nested subqueries (the view made in tools.py>addViews satisfies this)
  * [X] Modification of the database like insert, update and delete
  
 ### 4 of the 6 items

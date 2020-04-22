@@ -7,12 +7,12 @@
             {% for items in removedItemsList %}
                 <p>
                     <u>
-                        Added: <strong>{{getUser(items.addedByUid)}}</strong>
+                        Added: <strong>{{items.addedBy}}</strong>
                         <small> [{{dateConversion(items.dateAdded)}}]</small>
                     </u>
                     <br>
                     <u>
-                        Removed: <strong>{{getUser(items.removedByUid)}}</strong>
+                        Removed: <strong>{{items.removedBy}}</strong>
                         <small> [{{dateConversion(items.dateRemoved)}}]</small>
                     </u>
                     <br>
@@ -22,3 +22,9 @@
             {% endfor %}
         </div>
 {% endblock content %}
+
+{% block nav %}
+    <a class="nav-item nav-link" href="{{ url_for('listApp') }}">
+        Current List
+    </a>
+{% endblock %}
