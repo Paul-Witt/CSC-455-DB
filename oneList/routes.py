@@ -3,7 +3,7 @@ from flask import render_template, url_for, flash, redirect, request, abort, ses
 from flask_login import login_user, current_user, logout_user, login_required
 from oneList import app, db, bcrypt, tools
 from oneList.tools import getEpoch, epochToDate, logUser
-from oneList.forms import RegistrationForm, LogInForm, ItemForm
+from oneList.forms import RegistrationForm, LogInForm, ItemForm, SortDropDown
 from oneList.models import User, Items
 from oneList.storedProcedures import removeItem, selectRemovedItems, getUsername
 
@@ -96,13 +96,22 @@ def index():
 def listApp():
     # Log the user
     logUser(request, current_user)
-
-    itemsWithUsernames = db.session.execute('select * from itemsPage')
+    # Froms
+    sortForm = SortDropDown()
+    itemForm = ItemForm()
+    # Check how the user wants to sort
+    if sortForm.sortOptions.data == "oldDate":
+        itemsWithUsernames = db.session.execute('select * from itemsPage order by dateAdded DESC')
+    elif sortForm.sortOptions.data == "userName":
+        itemsWithUsernames = db.session.execute('select * from itemsPage order by username')
+    else:
+        itemsWithUsernames = db.session.execute('select * from itemsPage order by dateAdded ASC')
 
     return render_template(
         'app.html',
         title='List',
-        form=ItemForm(),
+        sortForm=sortForm,
+        itemForm=itemForm,
         dateConversion=epochToDate,
         posts=itemsWithUsernames
     )

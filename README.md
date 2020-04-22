@@ -17,8 +17,9 @@
  * [ ] Foreign keys, including cascade specifications
 
 ### Queries
- * [ ] Basic constructs like select, project, cartesian product, natural join
- * [ ] Aggregate functions like group by, sum, average, max etc
+ * [X] Basic constructs like select, project, cartesian product, natural join
+      * easy one since we cant do anything with out these
+ * [ ] Aggregate functions like group by, sum, average, max etc 
  * [ ] Nested subqueries
  * [X] Modification of the database like insert, update and delete
  
@@ -27,12 +28,11 @@
     * Made in tools
     * Used in routes
     * Makes a view that looks like Items table but the addedByUid is replaced by User.username
- * [ ] Triggers (if no user agent  is given we can replace it with "[NONE GIVEN]")
+ * [ ] Triggers 
  * [ ] Transaction processing (I think when we move items from one table to another counts)
  * [ ] Prepared Statements ()
- * [ ] Stored Procedures (maybe use functions that return some sql text)
- * [ ] Stored Functions
-
+ * [ ] Stored Procedures (Can't)
+ * [ ] Stored Functions (Can't)
 
 ## Requirements
  * Python 3

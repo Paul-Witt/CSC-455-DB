@@ -3,6 +3,12 @@ from wtforms import IntegerField, StringField, PasswordField, SubmitField, Boole
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from oneList.models import User
 
+itemSortOptions = [
+    ('newDate','Newest Date'),
+    ('oldDate','Oldest Date'),
+    ('userName','Username')
+]
+
 class RegistrationForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired(), Length(min=3, max=10)])
     password = PasswordField("Password", validators=[DataRequired()])
@@ -25,4 +31,9 @@ class ItemForm(FlaskForm):
     submitAdd = SubmitField("Add item")
     submitDel = SubmitField("Remove Checked Items")
     box = BooleanField("Remove")
+
+class SortDropDown(FlaskForm):
+    sortOptions = SelectField("Sort items", choices=itemSortOptions)
+    applyButton = SubmitField("Sort items")
+
 
