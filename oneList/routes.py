@@ -5,7 +5,7 @@ from oneList import app, db, bcrypt, tools
 from oneList.tools import getEpoch, epochToDate, logUser
 from oneList.forms import RegistrationForm, LogInForm, ItemForm, SortDropDown
 from oneList.models import User, Items
-from oneList.storedProcedures import removeItem, selectRemovedItems, getUsername
+from oneList.storedProcedures import removeItem
 
 
 '''
