@@ -25,11 +25,11 @@ class User(db.Model, UserMixin):
     dateAdded = db.Column(db.Integer, nullable=False)
     isAdmin = db.Column(db.String(5), nullable=False, default='false')
 
-    def userView(self):
-        return  User.query.filter(username = User.uid)
-
-    def adminView(self):
-        return User.query.all()
+    def view(self):
+        if self.isAdmin == 'true':
+            return User.query.all()
+        else:
+            return  User.query.filter(self.uid == User.uid)
 
     # Override get_id method inhearted from UserMixin 
     def get_id(self):
@@ -82,9 +82,9 @@ CREATE TABLE "Sessions" (
     FOREIGN KEY("uid") REFERENCES "User"("uid")
 )'''
 class Sessions(db.Model):
-    session = db.Column(db.String(100), primary_key=True, nullable=False) ## TODO Change length
+    session = db.Column(db.String(300), primary_key=True, nullable=False)
     uid = db.Column(db.Integer, db.ForeignKey(User.uid), nullable=False)
     dateIssued = db.Column(db.Integer, nullable=False)
-    laseUsed = db.Column(db.Integer, nullable=False)
+    lastUsed = db.Column(db.Integer, nullable=False)
     ip = db.Column(db.String(15), nullable=False)
     useragent = db.Column(db.String(500), nullable=False)

@@ -1,11 +1,11 @@
 from random import randint
-from flask import render_template, url_for, flash, redirect, request, abort
+from flask import render_template, url_for, flash, redirect, request, abort, session
 from flask_login import login_user, current_user, logout_user, login_required
 from oneList import app, db, bcrypt, tools
-from oneList.tools import getEpoch, epochToDate
+from oneList.tools import getEpoch, epochToDate, logUser
 from oneList.forms import RegistrationForm, LogInForm, ItemForm
 from oneList.models import User, Items
-from oneList.storedProcedures import pairItemAndUser, removeItem, selectRemovedItems, getUsername
+from oneList.storedProcedures import removeItem, selectRemovedItems, getUsername
 
 
 '''
@@ -94,8 +94,18 @@ def index():
 @app.route("/app", methods=['GET','POST'])
 @login_required
 def listApp():
-    return render_template('app.html', title='List', form=ItemForm(),dateConversion=epochToDate, posts=pairItemAndUser())
+    # Log the user
+    logUser(request, current_user)
 
+    itemsWithUsernames = db.session.execute('select * from itemsPage')
+
+    return render_template(
+        'app.html',
+        title='List',
+        form=ItemForm(),
+        dateConversion=epochToDate,
+        posts=itemsWithUsernames
+    )
 
 # Used for added an Item
 @app.route("/itemAction", methods=['POST'])

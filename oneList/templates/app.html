@@ -9,10 +9,10 @@
                 {% for post in posts %}
                     <h5>
                         <u>
-                            <strong>{{post.User.username}}</strong><small>[{{dateConversion(post.User.dateAdded)}}]</small>
+                            <strong>{{post.username}}</strong><small>[{{dateConversion(post.dateAdded)}}]</small>
                         </u>
                         <br>
-                        {{ form.box(value=post.Items.iid)}} {{ post.Items.item }}
+                        {{ form.box(value=post.iid)}} {{ post.item }}
                     </h5>
                     <br>
                 {% endfor %}

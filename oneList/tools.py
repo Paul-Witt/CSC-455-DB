@@ -31,12 +31,59 @@ def addItem(text='Nothing'):
     db.session.add(anItem)
     db.session.commit()
 
+# This will add the views we need
+def addViews():
+    # itemsPage SQL we will run
+    addItemsPageViewSql = '''
+CREATE VIEW itemsPage
+AS
+SELECT Items.iid, User.username, Items.item, Items.dateAdded
+from Items
+inner join User on Items.addedByUid = User.uid;'''
+
+    # Add view by running SQL
+    db.session.execute(addItemsPageViewSql)
+    db.session.commit()
+
+
 # Make the DB and add the admin
 def makeDB():
     # make 
     db.create_all()
+    # Add views
+    addViews()
     # add admin
     makeAdmin()
+
+def logUser(request, current_user):
+    thisSession = request.cookies['session']
+    # log new session
+    loggedSession = db.session.query(Sessions).filter(Sessions.session == thisSession)
+    if loggedSession.count() == 0:
+        now = getEpoch()
+        newSession=Sessions(
+            session=thisSession,
+            uid=current_user.uid,
+            dateIssued=now,
+            lastUsed=now,
+            ip=request.remote_addr,
+            useragent=str(request.user_agent)
+        )
+        # add it to the database
+        db.session.add(newSession)
+        db.session.commit()
+    # Update session
+    else:
+        # Get row from table
+        loggedSession=loggedSession.first()
+        # Update it
+        loggedSession.ip=request.remote_addr
+        loggedSession.lastUsed=getEpoch()
+        loggedSession.useragent=str(request.user_agent)
+        # save it
+        db.session.commit()
+
+
 
 
 

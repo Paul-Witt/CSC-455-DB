@@ -8,7 +8,7 @@
 ## Rubric
 ### Functionality proposed
  * [X] User table (created in models, used in routes)
- * [ ] Sessions (created in models)
+ * [X] Sessions (created in models, used in routes)
  * [X] Items (created in models, used in routes)
  * [X] RemovedItems (created in models, used in routes)
 
@@ -20,10 +20,13 @@
  * [ ] Basic constructs like select, project, cartesian product, natural join
  * [ ] Aggregate functions like group by, sum, average, max etc
  * [ ] Nested subqueries
- * [ ] Modification of the database like insert, update and delete
+ * [X] Modification of the database like insert, update and delete
  
 ### 4 of the 6 items
- * [ ] Views (make it so admin can see items removed form everyone but non admins can only see their stuff)
+ * [X] Views
+    * Made in tools
+    * Used in routes
+    * Makes a view that looks like Items table but the addedByUid is replaced by User.username
  * [ ] Triggers (if no user agent  is given we can replace it with "[NONE GIVEN]")
  * [ ] Transaction processing (I think when we move items from one table to another counts)
  * [ ] Prepared Statements ()

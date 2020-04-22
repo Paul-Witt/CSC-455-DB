@@ -15,7 +15,6 @@
     {% else %}
         <title>One List</title>
     {% endif %}
-
 </head>
 <body>
     <header class="site-header">
@@ -30,10 +29,6 @@
             <div class="navbar-nav">
               {% block nav %}{% endblock %}
               {% if current_user.is_authenticated %}
-                {% if current_user.isAdmin == 'true' %}
-                  <a class="nav-item nav-link" href="{{ url_for('listApp') }}">Current List</a>
-                  <a class="nav-item nav-link" href="{{ url_for('removedItems') }}">Removed Items</a>
-                {% endif %} 
                 <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
               {% else %}
                 <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
@@ -44,6 +39,8 @@
         </div>
       </nav>
     </header>
+
+
     <main role="main" class="container">
       <div class="row">
         <div class="col-md-8">
@@ -60,8 +57,7 @@
         </div>
       </div>
     </main>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
