@@ -31,6 +31,31 @@ def addItem(text='Nothing'):
     db.session.add(anItem)
     db.session.commit()
 
+# this will add the trigger we need
+def addTrigger():
+    # The Sql that will add a trigger
+    # The trigger adds one to the user's post count when they post
+    updatePostCountSQL = '''
+CREATE TRIGGER updatePostCount 
+after INSERT 
+on items
+BEGIN
+    UPDATE user
+    SET postCount = user.postCount+1
+    WHERE user.uid in
+    (
+        select addedByUid
+        from items
+        where iid in 
+            (select max(iid)
+            from items)
+    );
+END;'''
+
+    db.session.execute(updatePostCountSQL)
+    db.session.commit()
+
+
 # This will add the views we need
 def addViews():
     # itemsPage SQL we will run
@@ -68,6 +93,8 @@ NATURAL join
 def makeDB():
     # make 
     db.create_all()
+    # Add Triggers
+    addTrigger()
     # Add views
     addViews()
     # add admin
@@ -81,7 +108,6 @@ def logUser(request, current_user):
     if loggedSession.count() == 0:
         now = getEpoch()
         newSession=Sessions(
-            session=thisSession,
             uid=current_user.uid,
             dateIssued=now,
             lastUsed=now,

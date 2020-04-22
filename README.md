@@ -17,8 +17,10 @@
 ### Queries
  * [X] Basic constructs like select, project, cartesian product, natural join
       * easy one since we cant do anything with out these
- * [ ] Aggregate functions like group by, sum, average, max etc 
+ * [X] Aggregate functions like group by, sum, average, max etc 
+      * max used in the trigger
  * [X] Nested subqueries (the view made in tools.py>addViews satisfies this)
+      * Used in the one of the views
  * [X] Modification of the database like insert, update and delete
  
 ### 4 of the 6 items
@@ -27,7 +29,10 @@
     * Used in routes
     * Makes a view that looks like Items table but the addedByUid is replaced by User.username
     * Makes a view that looks like removedItems table but the Uids are replaced by the usernames
- * [ ] Triggers 
+ * [X] Triggers
+    * Made in tools
+    * Used when inserting into the items 
+    * Adds one to the user who just posted an item
  * [X] Transaction processing (I think when we move items from one table to another counts)
  * [ ] Prepared Statements ()
  * [ ] Stored Procedures (Can't)

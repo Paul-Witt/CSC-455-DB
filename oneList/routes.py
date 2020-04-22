@@ -94,8 +94,6 @@ def index():
 @app.route("/app", methods=['GET','POST'])
 @login_required
 def listApp():
-    # Log the user
-    logUser(request, current_user)
     # Froms
     sortForm = SortDropDown()
     itemForm = ItemForm()
