@@ -28,6 +28,7 @@
     * Made in tools
     * Used in routes
     * Makes a view that looks like Items table but the addedByUid is replaced by User.username
+    * Makes a view that looks like removedItems table but the Uids are replaced by the usernames
  * [ ] Triggers 
  * [ ] Transaction processing (I think when we move items from one table to another counts)
  * [ ] Prepared Statements ()
