@@ -4,10 +4,6 @@ from oneList import db
 from oneList.models import User, Items, RemovedItems
 from oneList.tools import getEpoch
 
-def selectAllUsers():
-    value = text("SELECT * FROM Users") # sqlalchemy
-    return value
-
 # Moves items to removedItems tabel 
 ## This is our transaction 
 def removeItem(itemID,removedByUid):
@@ -26,14 +22,6 @@ def removeItem(itemID,removedByUid):
             db.session.commit()
     except:
         db.session.rollback()
-
-
-# Gets all of the l
-def selectRemovedItems():
-    return db.session.query(RemovedItems).all()
-
-def getUsername(uid):
-    return db.session.query(User).filter(User.uid==uid).first().username
 
 
 

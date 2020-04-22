@@ -6,7 +6,7 @@
 ## Rubric
 ### Functionality proposed
  * [X] User table (created in models, used in routes)
- * [X] Sessions (created in models, used in routes)
+ * [ ] Sessions ( Need to repurpose )
  * [X] Items (created in models, used in routes)
  * [X] RemovedItems (created in models, used in routes)
 
@@ -35,8 +35,8 @@
     * Adds one to the user who just posted an item
  * [X] Transaction processing (I think when we move items from one table to another counts)
  * [ ] Prepared Statements ()
- * [ ] Stored Procedures (Can't)
- * [ ] Stored Functions (Can't)
+ * [ ] Stored Procedures (Can't?)
+ * [ ] Stored Functions (Can't?)
 
 ## Requirements
  * Python 3
