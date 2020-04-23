@@ -4,7 +4,7 @@
     Login log
 </legend>
 {% if current_user.isAdmin == 'true' %}
-    <div class="form-group mb-0">
+    <div class="form-group mb-2">
         <form method="POST" action="/loginLog">
             <div class="input-group">
                 {{ sortForm.sortOptions(class="custom-select") }}

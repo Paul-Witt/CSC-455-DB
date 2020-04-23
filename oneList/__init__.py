@@ -20,7 +20,7 @@ login_manager.login_message_category = 'info'
 
 # If there is no database we make one
 dbPath = path.abspath("oneList/"+databaseName)
-print("[**] Is path good? :: ",dbPath)
+#print("[**] Is path good? :: ",dbPath)
 if not path.exists(dbPath):
     from oneList import tools
     tools.makeDB()

@@ -29,6 +29,7 @@
     * Used in routes
     * Makes a view that looks like Items table but the addedByUid is replaced by User.username
     * Makes a view that looks like removedItems table but the Uids are replaced by the usernames
+    * Makes a view that looks like session table but the Uids are replaced by the usernames
  * [X] Triggers
     * Made in tools
     * Used when inserting into the items 
