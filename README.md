@@ -1,6 +1,5 @@
 # CSC-455-DB
 ## TODO
- * log sessions
  * Administrate Users page
 
 ## Rubric
