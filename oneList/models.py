@@ -43,8 +43,8 @@ CREATE TABLE "RemovedItems" (
 )'''
 class RemovedItems(db.Model):
     rid = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
-    removedByUid = db.Column(db.Integer, db.ForeignKey(User.uid), nullable=False)
-    addedByUid = db.Column(db.Integer, db.ForeignKey(User.uid), nullable=False)
+    removedByUid = db.Column(db.Integer, db.ForeignKey(User.uid, ondelete='CASCADE'), nullable=False)
+    addedByUid = db.Column(db.Integer, db.ForeignKey(User.uid, ondelete='CASCADE'), nullable=False)
     item = db.Column(db.String(200), nullable=False)
     dateAdded = db.Column(db.Integer, nullable=False)
     dateRemoved = db.Column(db.Integer, nullable=False)
@@ -61,7 +61,7 @@ CREATE TABLE "Items" (
 )'''
 class Items(db.Model):
     iid = db.Column(db.Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
-    addedByUid = db.Column(db.Integer, db.ForeignKey(User.uid), nullable=False)
+    addedByUid = db.Column(db.Integer, db.ForeignKey(User.uid, ondelete='CASCADE'), nullable=False)
     item = db.Column(db.String(200), nullable=False)
     dateAdded = db.Column(db.Integer, nullable=False)
 
@@ -78,7 +78,7 @@ CREATE TABLE "Sessions" (
 )'''
 class Sessions(db.Model):
     sid = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
-    uid = db.Column(db.Integer, db.ForeignKey(User.uid), nullable=False)
+    uid = db.Column(db.Integer, db.ForeignKey(User.uid, ondelete='CASCADE'), nullable=False)
     ip = db.Column(db.String(15), nullable=False)
     useragent = db.Column(db.String(500), nullable=False)
     issueddate = db.Column(db.Integer, nullable=False)
