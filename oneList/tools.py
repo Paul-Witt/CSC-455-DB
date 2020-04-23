@@ -100,33 +100,33 @@ def makeDB():
     # add admin
     makeAdmin()
 
-# TODO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+# Log the user to get a login history
 def logUser(request, current_user):
-    thisSession = request.cookies['session']
-    # log new session
-    loggedSession = db.session.query(Sessions).filter(Sessions.session == thisSession)
-    if loggedSession.count() == 0:
-        now = getEpoch()
-        newSession=Sessions(
-            uid=current_user.uid,
-            dateIssued=now,
-            lastUsed=now,
-            ip=request.remote_addr,
-            useragent=str(request.user_agent)
-        )
-        # add it to the database
-        db.session.add(newSession)
+    recordLength = 30
+    # Keep the logged sessions to 30
+    sessions = db.session.\
+        query(Sessions).\
+        filter(Sessions.uid==current_user.uid).\
+        order_by(Sessions.issueddate)
+    # Check if session entries have exceded the recordLength
+    if sessions.count()>recordLength-1:
+        # Make a list of all the old sessions we want to remove
+        removeSessions=sessions[:-(recordLength-1)]
+        # removed each logged session
+        for log in removeSessions:
+            db.session.delete(log)
         db.session.commit()
-    # Update session
-    else:
-        # Get row from table
-        loggedSession=loggedSession.first()
-        # Update it
-        loggedSession.ip=request.remote_addr
-        loggedSession.lastUsed=getEpoch()
-        loggedSession.useragent=str(request.user_agent)
-        # save it
-        db.session.commit()
+    # Make a new entry for the current login
+    newSession=Sessions(
+        uid=current_user.uid, 
+        ip=request.remote_addr,
+        useragent=str(request.user_agent),
+        issueddate=getEpoch()
+    )
+    # Add it to the database
+    db.session.add(newSession)
+    db.session.commit()
+
 
 
 

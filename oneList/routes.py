@@ -52,7 +52,6 @@ def login():
     # Check if logged in
     if current_user.is_authenticated:
         return redirect(url_for('listApp'))
-
     # login get Login Form
     form = LogInForm()
 
@@ -62,11 +61,11 @@ def login():
 
         # Check password
         if user and bcrypt.check_password_hash(user.password, form.password.data):
-            # TODO
+            # User login
             login_user(user, remember=form.remember.data)
-            # get fwd page
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('index'))
+            # Log the user
+            logUser(request, current_user)
+            return redirect(url_for('listApp'))
         else:
             flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -104,7 +103,6 @@ def listApp():
         itemsWithUsernames = db.session.execute('select * from itemsPage order by username')
     else:
         itemsWithUsernames = db.session.execute('select * from itemsPage order by dateAdded ASC')
-
     return render_template(
         'app.html',
         title='List',

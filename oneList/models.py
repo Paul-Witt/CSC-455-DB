@@ -77,9 +77,8 @@ CREATE TABLE "Sessions" (
     FOREIGN KEY("uid") REFERENCES "User"("uid")
 )'''
 class Sessions(db.Model):
-    deviceId = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+    sid = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     uid = db.Column(db.Integer, db.ForeignKey(User.uid), nullable=False)
     ip = db.Column(db.String(15), nullable=False)
     useragent = db.Column(db.String(500), nullable=False)
-    firstSeenDate = db.Column(db.Integer, nullable=False)
-    lastSeenDate = db.Column(db.Integer, nullable=False)
+    issueddate = db.Column(db.Integer, nullable=False)
