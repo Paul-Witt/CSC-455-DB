@@ -8,14 +8,7 @@ from oneList.models import User, Items
 from oneList.storedProcedures import removeItem
 
 
-'''
-Notes
-@login_required :: used to check if user is logged in
-
-db.session.rollback()
-
-'''
-
+# user can make an account
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     # Check session
@@ -46,7 +39,7 @@ def register():
             flash('Your account has not been created.', 'fail') 
     return render_template('register.html', title='Register', form=form)
 
-
+# Log in page
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     # Check if logged in
@@ -89,7 +82,7 @@ def index():
     else:
          return redirect(url_for('login'))
 
-
+# list app page
 @app.route("/app", methods=['GET','POST'])
 @login_required
 def listApp():
@@ -145,11 +138,22 @@ def itemAction():
 @app.route("/removedItems", methods=['POST','GET'])
 @login_required
 def removedItems():
+    # Get all removed items
+    removedItemsWithUsernames = db.session.execute('select * from removedItemsPage')
+    # Show then to the user
+    return render_template('removed.html',
+        removedItemsList=removedItemsWithUsernames,
+        dateConversion=epochToDate)
+
+
+# Get account settings and log
+@app.route("/loginLog", methods=['POST','GET'])
+@login_required
+def loginLog():
     if current_user.isAdmin == 'true': 
-        removedItemsWithUsernames = db.session.execute('select * from removedItemsPage')
-        return render_template('removed.html',
-            removedItemsList=removedItemsWithUsernames,
-            dateConversion=epochToDate)
+        sessions = db.session.execute('select * from sessionLog order by uid')
+        return "admin"
     else:
-        abort(403)
+        sessions = db.session.execute('select * from sessionLog where uid = ?',current_user.uid)
+        return "user"
 

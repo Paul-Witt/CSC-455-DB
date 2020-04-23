@@ -67,7 +67,7 @@ from Items
 inner join User on Items.addedByUid = User.uid;'''
     
     # View for removed items page
-    # outputs a table with rid, addedBy, item, dateAdded, dateRemoved, removedBy
+    # Outputs a table with rid, addedBy, item, dateAdded, dateRemoved, removedBy
     removedItemsPageViewSql = '''
 CREATE VIEW removedItemsPage
 AS
@@ -83,7 +83,16 @@ NATURAL join
     from removed_items
     inner join User on removed_items.removedByUid = user.uid
 );'''
+
+    # Makes view for login log
+    sessionLogViewSQL='''
+CREATE VIEW sessionLog
+AS
+SELECT Sessions.sid,Sessions.uid, User.username, Sessions.ip, Sessions.useragent, Sessions.issueddate
+from Sessions
+inner join User on Sessions.uid = User.uid;'''
     # Add view by running SQL
+    db.session.execute(sessionLogViewSQL)
     db.session.execute(addItemsPageViewSql)
     db.session.execute(removedItemsPageViewSql)
     db.session.commit()
