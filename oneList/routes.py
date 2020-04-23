@@ -150,10 +150,24 @@ def removedItems():
 @app.route("/loginLog", methods=['POST','GET'])
 @login_required
 def loginLog():
+    # Get from
+    sortForm = SortDropDown()
     if current_user.isAdmin == 'true': 
-        sessions = db.session.execute('select * from sessionLog order by uid')
-        return "admin"
+        # Check if we need to sort
+        if sortForm.sortOptions.data == "oldDate":
+            sessions = db.session.execute('select * from sessionLog order by issueddate DESC')
+        elif sortForm.sortOptions.data == "userName":
+            sessions = db.session.execute('select * from sessionLog order by uid')
+        else:
+            sessions = db.session.execute('select * from sessionLog order by issueddate ASC')
     else:
-        sessions = db.session.execute('select * from sessionLog where uid = ?',current_user.uid)
-        return "user"
+        sessions = db.session.execute('select * from sessionLog where uid = :uid order by issueddate ASC',
+            {'uid':current_user.uid}
+        )
+    return render_template(
+        'loginLog.html',
+        sessions=sessions,
+        sortForm=sortForm,
+        epochToDate=epochToDate
+    )
 

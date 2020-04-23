@@ -61,13 +61,3 @@
 </div>
 {% endblock content %}
 
-{% if current_user.is_authenticated %}
-    {% if current_user.isAdmin == 'true' %}
-        {% block nav %}
-            <a class="nav-item nav-link" href="{{ url_for('removedItems') }}">
-                Removed Items
-            </a>
-        {% endblock %}
-    {% endif %}
-{% endif %}
-
