@@ -12,15 +12,17 @@
 
 ### Database-related elements
  * [X] Primary keys (satisfied in models)
- * [ ] Foreign keys, including cascade specifications
+ * [X] Foreign keys, including cascade specifications
+    * Made in tools
+    * when a user is deleted it removes all items they posted
 
 ### Queries
  * [X] Basic constructs like select, project, cartesian product, natural join
-      * easy one since we cant do anything with out these
+    * easy one since we cant do anything with out these
  * [X] Aggregate functions like group by, sum, average, max etc 
-      * max used in the trigger
+    * max used in the trigger
  * [X] Nested subqueries (the view made in tools.py>addViews satisfies this)
-      * Used in the one of the views
+    * Used in the one of the views
  * [X] Modification of the database like insert, update and delete
  
 ### 4 of the 6 items
