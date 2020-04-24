@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+    <legend class="border-bottom mb-4">
+        Account menu
+    </legend>
+    <div class="list-group">
+        <a href="{{ url_for('changeUserName') }}" class="list-group-item list-group-item-action">
+            Change Username
+        </a>
+        <a href="{{ url_for('changePassword') }}" class="list-group-item list-group-item-action">
+            Change Password
+        </a>
+        <a href="{{ url_for('loginLog') }}" class="list-group-item list-group-item-action">
+            Login Log
+            {% if current_user.isAdmin == 'true' %}
+                (All Users)
+            {% endif %}
+        </a>
+        <a href="{{ url_for('logout') }}" class="list-group-item list-group-item-action">
+            Logout
+        </a>
+    </div>
+
+    <legend class="border-bottom mt-4 mb-4"></legend>
+
+    <div class="list-group">
+        <a href="{{ url_for('deleteAccount') }}" class="list-group-item list-group-item-action list-group-item-danger">
+            Delete Account
+        </a>
+    </div>
+
+    <legend class="border-bottom mt-4 mb-4"></legend>
+
+    <div class="list-group">
+        <a href="{{ url_for('listApp') }}" class="list-group-item list-group-item-action list-group-item-info">Exit Menu</a>
+    </div>
+{% endblock content %}

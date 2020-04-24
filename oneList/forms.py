@@ -10,7 +10,7 @@ itemSortOptions = [
 ]
 
 class RegistrationForm(FlaskForm):
-    username = StringField("Username", validators=[DataRequired(), Length(min=3, max=10)])
+    username = StringField("Username", validators=[DataRequired(), Length(min=2, max=15)])
     password = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
     submit = SubmitField("Sign Up")
@@ -36,4 +36,23 @@ class SortDropDown(FlaskForm):
     sortOptions = SelectField("Sort items", choices=itemSortOptions)
     applyButton = SubmitField("Sort items")
 
+class ChangePassword(FlaskForm):
+    password = PasswordField("Current Password", validators=[DataRequired()])
+    newPassword = PasswordField("New Password", validators=[DataRequired()])
+    confirmNewPassword = PasswordField("Confirm New Password", validators=[DataRequired(),EqualTo("newPassword")])
+    submit = SubmitField("Submit")
 
+class ChangeUsername(FlaskForm):
+    username = StringField("Username", validators=[DataRequired(), Length(min=2, max=15)])
+    password = PasswordField("Current Password", validators=[DataRequired()])
+    submit = SubmitField("Submit")
+
+class DeleteAccount(FlaskForm):
+    password = PasswordField("Current Password", validators=[DataRequired()])
+    submit = SubmitField("Delete Account")
+
+###### TODO
+class MakeAdminFrom(FlaskForm):
+    sortOptions = SelectField("Users", choices=itemSortOptions)
+    applyButton = SubmitField("Toggle Admin")
+#####

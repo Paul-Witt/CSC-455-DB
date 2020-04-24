@@ -1,12 +1,12 @@
 from random import randint
-from flask import render_template, url_for, flash, redirect, request, abort, session
+from flask import render_template, url_for, flash, redirect, request, abort
 from flask_login import login_user, current_user, logout_user, login_required
 from oneList import app, db, bcrypt, tools
 from oneList.tools import getEpoch, epochToDate, logUser
-from oneList.forms import RegistrationForm, LogInForm, ItemForm, SortDropDown
+from oneList.forms import RegistrationForm, LogInForm, ItemForm, SortDropDown, MakeAdminFrom,\
+     ChangeUsername, ChangePassword, DeleteAccount
 from oneList.models import User, Items
 from oneList.storedProcedures import removeItem
-
 
 # user can make an account
 @app.route("/register", methods=['GET', 'POST'])
@@ -170,4 +170,76 @@ def loginLog():
         sortForm=sortForm,
         epochToDate=epochToDate
     )
+
+# Menu for settings
+@app.route("/settings", methods=['POST','GET'])
+@login_required
+def settings():
+    # Show page to the user
+    return render_template('settings.html')
+
+# Page for username update
+@app.route("/usernameChange", methods=['POST','GET'])
+@login_required
+def changeUserName():
+    form = ChangeUsername()
+    if form.validate_on_submit() and form.username.data != current_user.username:
+        if bcrypt.check_password_hash(current_user.password, form.password.data):
+            if current_user.username=='admin':
+                flash('Admin account change username.', 'warning')
+            else:
+                # Update username
+                if form.username.data != "":
+                    current_user.username = form.username.data
+                    db.session.commit()
+                    # Tell user
+                    flash('Username Updated.', 'success')
+                else:
+                    flash('Username cannot be empty.', 'warning')
+        else:
+            flash('Password does not match.', 'danger')
+    # Show page to the user
+    return render_template('changeUsername.html',form=form)
+
+# Page for password update
+@app.route("/passwordChange", methods=['POST','GET'])
+@login_required
+def changePassword():
+    form = ChangePassword()
+    if form.validate_on_submit():
+        if bcrypt.check_password_hash(current_user.password, form.password.data):
+            if form.newPassword.data == form.confirmNewPassword.data:
+                current_user.password = bcrypt.generate_password_hash(form.newPassword.data).decode('utf-8')
+                db.session.commit()
+                flash('Password Updated.', 'success')
+            else:
+               flash('"New Password" and "Confirm New Password" fields do not match.', 'warning') 
+        else:
+            flash('Password does not match.', 'danger')
+    # Show page to the user
+    return render_template('changePassword.html',form=form)
+
+# Page for Removing account
+@app.route("/deleteAccount", methods=['POST','GET'])
+@login_required
+def deleteAccount():
+    form = DeleteAccount()
+    if form.validate_on_submit():
+        if bcrypt.check_password_hash(current_user.password, form.password.data):
+            if current_user.username=='admin':
+                flash('Admin account cannot be deleted.', 'warning')
+            else:
+                # Delete the user 
+                db.session.execute('Delete from user where uid=:uid',{'uid':current_user.uid})
+                db.session.commit()
+                # Tell user
+                flash('Account Deleted.', 'success')
+                # Log out user
+                logout_user()
+                return redirect(url_for('login'))
+        else:
+            flash('Password does not match.', 'danger')
+    # Show page to the user
+    return render_template('deleteAccount.html',form=form)
+
 

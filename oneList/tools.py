@@ -26,7 +26,7 @@ def makeAdmin():
     db.session.add(admin)
     db.session.commit()
 
-def addItem(text='Nothing'):
+def addItem(text):
     anItem = Items(addedByUid=1, item=text,dateAdded=getEpoch())
     db.session.add(anItem)
     db.session.commit()
@@ -108,6 +108,9 @@ def makeDB():
     addViews()
     # add admin
     makeAdmin()
+    # Add one Item that warns the admin
+    addItem("Update your default admin password so your admin account is safe!! Go to settings>Change Password")
+    addItem("Log in with Username: admin and Password admin")
 
 # Log the user to get a login history
 def logUser(request, current_user):
