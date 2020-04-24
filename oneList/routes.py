@@ -194,6 +194,7 @@ def changeUserName():
                     db.session.commit()
                     # Tell user
                     flash('Username Updated.', 'success')
+                    return redirect(url_for('settings'))
                 else:
                     flash('Username cannot be empty.', 'warning')
         else:
@@ -212,6 +213,7 @@ def changePassword():
                 current_user.password = bcrypt.generate_password_hash(form.newPassword.data).decode('utf-8')
                 db.session.commit()
                 flash('Password Updated.', 'success')
+                return redirect(url_for('settings'))
             else:
                flash('"New Password" and "Confirm New Password" fields do not match.', 'warning') 
         else:
