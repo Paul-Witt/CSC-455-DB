@@ -23,5 +23,8 @@ def removeItem(itemID,removedByUid):
     except:
         db.session.rollback()
 
+def deleteUser(uid):
+    
+
 
 

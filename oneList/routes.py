@@ -231,8 +231,9 @@ def deleteAccount():
             if current_user.username=='admin':
                 flash('Admin account cannot be deleted.', 'warning')
             else:
-                # Delete the user 
-                db.session.execute('Delete from user where uid=:uid',{'uid':current_user.uid})
+                # Delete the user
+                db.session.delete(current_user)
+                #db.session.execute('Delete from user where uid=:uid',{'uid':current_user.uid})
                 db.session.commit()
                 # Tell user
                 flash('Account Deleted.', 'success')
