@@ -25,6 +25,10 @@ class User(db.Model, UserMixin):
     dateAdded = db.Column(db.Integer, nullable=False)
     isAdmin = db.Column(db.String(5), nullable=False, default='false')
     postCount = db.Column(db.Integer, nullable=False, default=0)
+    items_addedByUid= db.relationship('Items', cascade='all,delete')
+    session_uid = db.relationship('Sessions', cascade='all,delete')
+    removedItems_removedByUid = db.relationship('RemovedItems', cascade='all,delete',foreign_keys='RemovedItems.removedByUid')
+    removedByUid_addedByUid = db.relationship('RemovedItems', cascade='all,delete',foreign_keys='RemovedItems.addedByUid')
 
     # Override get_id method inhearted from UserMixin 
     def get_id(self):
