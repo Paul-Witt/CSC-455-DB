@@ -2,7 +2,7 @@ from sqlalchemy import text
 #from sqlalchemy.sql.expression import func
 from oneList import db
 from oneList.models import User, Items, RemovedItems
-from oneList.tools import getEpoch
+from oneList.functions import getEpoch
 
 # Moves items to removedItems tabel 
 ## This is our transaction 

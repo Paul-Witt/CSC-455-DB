@@ -1,6 +1,4 @@
 # CSC-455-DB
-## TODO
- * Administrate Users page
 
 ## Rubric
 ### Functionality proposed
@@ -36,9 +34,9 @@
     * Used when inserting into the items 
     * Adds one to the user who just posted an item
  * [X] Transaction processing (I think when we move items from one table to another counts)
- * [ ] Prepared Statements ()
- * [ ] Stored Procedures (Can't?)
- * [ ] Stored Functions (Can't?)
+ * [X] Prepared Statements (Used in routes when deleting a user)
+ * [ ] Stored Procedures (Can't)
+ * [ ] Stored Functions (Can't)
 
 ## Requirements
  * Python 3

@@ -1,12 +1,11 @@
 from random import randint
 from flask import render_template, url_for, flash, redirect, request, abort
 from flask_login import login_user, current_user, logout_user, login_required
-from oneList import app, db, bcrypt, tools
-from oneList.tools import getEpoch, epochToDate, logUser
+from oneList import app, db, bcrypt
+from oneList.functions import getEpoch, epochToDate, logUser, removeItem
 from oneList.forms import RegistrationForm, LogInForm, ItemForm, SortDropDown, MakeAdminFrom,\
      ChangeUsername, ChangePassword, DeleteAccount
 from oneList.models import User, Items
-from oneList.storedProcedures import removeItem
 
 # user can make an account
 @app.route("/register", methods=['GET', 'POST'])
