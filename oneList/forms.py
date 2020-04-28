@@ -51,8 +51,6 @@ class DeleteAccount(FlaskForm):
     password = PasswordField("Current Password", validators=[DataRequired()])
     submit = SubmitField("Delete Account")
 
-###### TODO
 class MakeAdminFrom(FlaskForm):
     sortOptions = SelectField("Users", choices=itemSortOptions)
     applyButton = SubmitField("Toggle Admin")
-#####
