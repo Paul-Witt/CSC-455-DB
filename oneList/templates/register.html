@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="content-section">
+    <div>
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
@@ -43,6 +43,19 @@
                         </div>
                     {% else %}
                         {{ form.confirm_password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.inviteKey.label(class="form-control-label") }}
+                    {% if form.inviteKey.errors %}
+                        {{ form.inviteKey(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.inviteKey.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.inviteKey(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
             </fieldset>

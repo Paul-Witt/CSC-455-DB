@@ -1,9 +1,9 @@
 from random import randint
 from flask import render_template, url_for, flash, redirect, request, abort
 from flask_login import login_user, current_user, logout_user, login_required
-from oneList import app, db, bcrypt
+from oneList import app, db, bcrypt, inviteKeyList
 from oneList.functions import getEpoch, epochToDate, logUser, removeItem
-from oneList.forms import RegistrationForm, LogInForm, ItemForm, SortDropDown, MakeAdminFrom,\
+from oneList.forms import RegistrationForm, LogInForm, ItemForm, SortDropDown, InviteKey,\
      ChangeUsername, ChangePassword, DeleteAccount
 from oneList.models import User, Items
 
@@ -19,23 +19,29 @@ def register():
 
     # Check if form is 
     if form.validate_on_submit():
-        # Hash password
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        if form.inviteKey.data in inviteKeyList:
+            # Remove invite key     
+            inviteKeyList.pop(inviteKeyList.index(form.inviteKey.data))
+            
+            # Hash password
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
 
-        # Get user info from form
-        user = User(username=form.username.data, password=hashed_password, dateAdded=getEpoch(), isAdmin='false')
+            # Get user info from form
+            user = User(username=form.username.data, password=hashed_password, dateAdded=getEpoch(), isAdmin='false')
 
-        try:
-            # Add user
-            db.session.add(user)
-            db.session.commit()
-            flash('Your account has been created! You are now able to log in', 'success')
-            # Send them to the login
-            return redirect(url_for('login'))
-        except:
-            # Undo if it broke
-            db.session.rollback()
-            flash('Your account has not been created.', 'fail') 
+            try:
+                # Add user
+                db.session.add(user)
+                db.session.commit()
+                flash('Your account has been created! You are now able to log in', 'success')
+                # Send them to the login
+                return redirect(url_for('login'))
+            except:
+                # Undo if it broke
+                db.session.rollback()
+                flash('Your account has not been created.', 'fail') 
+        else:
+            flash('Invite Key is not in my list.', 'fail')
     return render_template('register.html', title='Register', form=form)
 
 # Log in page
@@ -243,5 +249,18 @@ def deleteAccount():
             flash('Password does not match.', 'danger')
     # Show page to the user
     return render_template('deleteAccount.html',form=form)
+
+@app.route("/addInviteKey", methods=['POST','GET'])
+@login_required
+def addInviteKey():
+    form = InviteKey()
+    if form.validate_on_submit():
+        if bcrypt.check_password_hash(current_user.password, form.password.data):
+            inviteKeyList.append(form.key.data)
+            flash('Added Invite Key.', 'success')
+        else:
+            flash('Password does not match.', 'danger')
+    # Show page to the user
+    return render_template('addInviteKey.html',keys=inviteKeyList,form=form)
 
 

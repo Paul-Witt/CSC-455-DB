@@ -13,6 +13,7 @@ class RegistrationForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired(), Length(min=2, max=15)])
     password = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
+    inviteKey = PasswordField("Invite Key", validators=[DataRequired()])
     submit = SubmitField("Sign Up")
 
     def validate_username(self, username):
@@ -54,3 +55,8 @@ class DeleteAccount(FlaskForm):
 class MakeAdminFrom(FlaskForm):
     sortOptions = SelectField("Users", choices=itemSortOptions)
     applyButton = SubmitField("Toggle Admin")
+
+class InviteKey(FlaskForm):
+    key = StringField("Invite Key", validators=[DataRequired()])
+    password = PasswordField("Password", validators=[DataRequired()])
+    submit = SubmitField("Submit")
