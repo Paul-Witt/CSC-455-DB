@@ -4,24 +4,24 @@
         Account menu
     </legend>
     <div class="list-group">
-        <a href="{{ url_for('changeUserName') }}" class="list-group-item list-group-item-action">
+        <a href="{{ url_for('changeUserName') }}" class="list-group-item list-group-item-action list-group-item-custom-blue">
             Change Username
         </a>
-        <a href="{{ url_for('changePassword') }}" class="list-group-item list-group-item-action">
+        <a href="{{ url_for('changePassword') }}" class="list-group-item list-group-item-action list-group-item-custom-blue">
             Change Password
         </a>
-        <a href="{{ url_for('loginLog') }}" class="list-group-item list-group-item-action">
+        <a href="{{ url_for('loginLog') }}" class="list-group-item list-group-item-action list-group-item-custom-blue">
             Login Log
             {% if current_user.isAdmin == 'true' %}
                 (All Users)
             {% endif %}
         </a>
         {% if current_user.isAdmin == 'true' %}
-        <a href="{{ url_for('addInviteKey') }}" class="list-group-item list-group-item-action">
+        <a href="{{ url_for('addInviteKey') }}" class="list-group-item list-group-item-action list-group-item-custom-blue">
             Add Invite Key
         </a>
         {% endif %}
-        <a href="{{ url_for('logout') }}" class="list-group-item list-group-item-action">
+        <a href="{{ url_for('logout') }}" class="list-group-item list-group-item-action list-group-item-custom-blue">
             Logout
         </a>
     </div>

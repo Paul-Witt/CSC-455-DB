@@ -1,15 +1,28 @@
 body {
-  background: #fafafa;
-  color: #333333;
+  background: #3e3e3e;
+  color: #1e1e1e;
   margin-top: 5rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #444444;
+  color: #73bfd7;
+}
+
+
+p, legend{
+  color: #73bfd7;
+}
+
+.form-check-label{
+  color: #73bfd7
+}
+
+.form-control-label{
+  color: #73bfd7;
 }
 
 .bg-steel {
-  background-color: #5f788a;
+  background-color: #35768a;
 }
 
 .site-header .navbar-nav .nav-link {
@@ -24,8 +37,21 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
 
+.card-body{
+  background-color: #1d3744;
+}
+
+.list-group-item-custom-blue{
+  background-color: #35768a;
+  color: #00ff00;
+}
+
+.list-group-item-custom-blue:hover{
+  background-color: #1d3744;
+}
+
 .content-section {
-  background: #ffffff;
+  background: #1d3744;
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
